@@ -5,3 +5,7 @@ theme:
     primary: blue
     scheme: slate
   name: material
+
+plugins:
+  - search
+  - blog
