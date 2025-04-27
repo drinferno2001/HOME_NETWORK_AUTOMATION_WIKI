@@ -3,7 +3,7 @@ site_url: https://firstgambrellianempire.com/hna-wiki
 theme:
   palette:
     primary: blue
-    scheme: slate
+    scheme: default
   name: material
 
 plugins:
