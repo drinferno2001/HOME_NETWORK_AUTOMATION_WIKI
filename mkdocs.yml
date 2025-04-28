@@ -1,11 +1,19 @@
 site_name: Home Network Automation
 site_url: https://firstgambrellianempire.com/hna-wiki
+nav:
+  - Project Goal: index.md
+  - Initial Setup:
+    - env_setup/index.md
+    - Testing (Virtualized Setup): env_setup/virt/pre-requisites.md
+  - Logged Work: 
+    - blog/index.md
 theme:
   palette:
     primary: blue
     scheme: default
   name: material
-
+  features:
+    - navigation.indexes
 plugins:
   - search
   - blog
