@@ -33,31 +33,44 @@ flowchart LR
     end
     
     subgraph Production_Home_Network [PRODUCTION HOME NETWORK]
-        direction LR
-        
-        PRD_OPNSense --- PRD_Switching
-        PRD_Switching --- DEV_Workstation
-        
-        %% Define Proxmox VE Server Block
-        subgraph PROXMOX_VE_SERVER ["PROXMOX VE SERVER<br/>(Hosts VM/CTs)"]
+        subgraph PHN_Container[" "]
             direction LR
-            PVE_LXC
+            
+            PRD_OPNSense --- PRD_Switching
+            PRD_Switching --- DEV_Workstation
+            
+            %% Define Proxmox VE Server Block
+            subgraph Proxmox_VE_Server ["PROXMOX VE SERVER<br/>(Hosts VM/CTs)"]
+                subgraph Proxmox_VE_Server_Padding[" "]
+                    PVE_LXC
+                end
+
+                Proxmox_VE_Server_Padding:::hidden
+            end
+
+            %% Define GNS3 Server Block
+            subgraph GNS3_Server ["GNS3 SERVER<br/>(Hosts Virtual Network Lab)"]
+                subgraph GNS3_Server_Padding[" "]
+                    VIRT_OPNSense --- VIRT_Switching
+                end
+
+                GNS3_Server_Padding:::hidden
+            end
+
+            PRD_Switching --- PVE_LXC
+            PRD_Switching --- VIRT_OPNSense
+            PRD_Switching --- VIRT_OPNSense
         end
 
-        %% Define GNS3 Server Block
-        subgraph GNS3_SERVER ["GNS3 SERVER<br/>(Hosts Virtual Network Lab)"]
-            direction LR
-            VIRT_OPNSense --- VIRT_Switching
+        subgraph PHN_Padding[" "]
         end
 
-        PRD_Switching --- PVE_LXC
-        PRD_Switching --- VIRT_OPNSense
-        PRD_Switching --- VIRT_OPNSense
+        PHN_Container:::hidden ~~~ PHN_Padding:::hidden
     end
 
     Internet --- PRD_OPNSense
 
-    classDef wide width:auto
+    classDef hidden opacity:100%
 
     subgraph VLAN_INFO["VLANS/Connections"]
         direction TB
