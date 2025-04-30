@@ -10,26 +10,32 @@ environment as close to production as humanely possible.
 In the end, we settled with the following for the server and networking setup:
 
 ``` mermaid
-flowchart LR
+flowchart TD
 
     %%%%%%%%%%%
     %% NODES %%
     %%%%%%%%%%%
 
+    %% DEFINE TITLE NODES %%
+
+    PHN_Block_Title@{ shape: doc, label: "PRODUCTION HOME NETWORK" }
+    GNS_Block_Title@{ shape: doc, label: "GNS3 SERVER<br/>(Virtual Network Lab)" }
+    Proxmox_Block_Title@{ shape: doc, label: "PROXMOX VE SERVER<br/>(VM/CTs)" }
+
     %% Define Production Home Network Nodes
 
-    PRD_OPNSense(["OPNSense Firewall/Router"])
-    PRD_Switching(["L2 Network (w VLAN Switching)"])
-    DEV_Workstation(["Dev Workstation<br/>(VSCode + SSH Plugin)"])
+    PRD_OPNSense["OPNSense Firewall/Router"]
+    PRD_Switching["L2 Network (w VLAN Switching)"]
+    DEV_Workstation["Dev Workstation<br/>(VSCode + SSH Plugin)"]
 
     %% Define Proxmox Server Nodes
 
-    PVE_LXC(["Ubuntu 24.04 LXC Container<br/>(Ansible Control Node w/Git Repos)"])
+    PVE_LXC["Ubuntu 24.04 LXC Container<br/>(Ansible Control Node w/Git Repos)"]
 
     %% Define GNS3 Server Nodes
 
-    VIRT_OPNSense(["OPNSense Virtual Appliance<br/>(Ansible Managed Node)"])
-    VIRT_Switching(["Virtual L2 Network (w/ VLAN Switching)"])
+    VIRT_OPNSense["OPNSense Virtual Appliance<br/>(Ansible Managed Node)"]
+    VIRT_Switching["Virtual L2 Network (w/ VLAN Switching)"]
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %% DEFINE SUBGRAPH STRUCTURES %%
@@ -41,34 +47,27 @@ flowchart LR
     end
     
     %% Define Production Home Network Subgraph (and any nested/formatting-type subgraphs)
-    subgraph Production_Home_Network [PRODUCTION HOME NETWORK]
-        subgraph PHN_Container[" "]
-            direction LR
+    subgraph Production_Home_Network [" "]
             
-            PRD_OPNSense
-            PRD_Switching
-            DEV_Workstation
-            
-            %% Define Proxmox VE Server Block
-            subgraph Proxmox_VE_Server ["PROXMOX VE SERVER<br/>(VM/CTs)"]
-                subgraph Proxmox_VE_Server_Padding[" "]
-                    PVE_LXC
-                end
-                Proxmox_VE_Server_Padding:::hidden
-            end
+        PHN_Block_Title
 
-            %% Define GNS3 Server Block
-            subgraph GNS3_Server ["GNS3 SERVER<br/>(Virtual Network Lab)"]
-                subgraph GNS3_Server_Padding[" "]
-                    VIRT_OPNSense
-                    VIRT_Switching
-                end
-
-                GNS3_Server_Padding:::hidden
-            end
+        PRD_OPNSense
+        PRD_Switching
+        DEV_Workstation
+        
+        %% Define Proxmox VE Server Block
+        subgraph Proxmox_VE_Server [" "]
+            direction TB
+            PVE_LXC
+            Proxmox_Block_Title
         end
 
-        subgraph PHN_Padding[" "]
+        %% Define GNS3 Server Block
+        subgraph GNS3_Server [" "]
+            direction TB
+            VIRT_OPNSense
+            VIRT_Switching
+            GNS_Block_Title
         end
     end
 
@@ -95,8 +94,9 @@ flowchart LR
     %% Link ID: 6 (PROD LAN TO PROXMOX LXC)
     PRD_Switching === PVE_LXC
 
-    %% Link ID: 7 (HIDDEN LINK FOR Production Home Network block formatting)
-    PHN_Container:::hidden ~~~ PHN_Padding:::hidden
+    %% Link ID: 7, 8, 9 (TITLES)
+    VIRT_Switching ~~~ GNS_Block_Title
+    PVE_LXC ~~~ Proxmox_Block_Title
 
     %%%%%%%%%%%%
     %% Styles %%
