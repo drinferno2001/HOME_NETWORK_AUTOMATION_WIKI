@@ -75,12 +75,4 @@ flowchart LR
     %% Styles
 
     classDef hidden fill:#0000,stroke:#0000
-
-    subgraph VLAN_INFO["VLANS/Connections"]
-        direction TB
-        note1(["BLUE - TRUNK Connections (RoAS)"]) ~~~
-        note2(["GREEN - WAN"]) ~~~
-        note3(["RED - MGMT Access"]) ~~~
-        note4(["VLAN Format: 172.99.[VLAN ID].0/24"])
-    end
 ```
