@@ -70,7 +70,7 @@ flowchart LR
 
     Internet --- PRD_OPNSense
 
-    classDef hidden opacity:100%
+    classDef hidden fill:#0000,stroke:#0000
 
     subgraph VLAN_INFO["VLANS/Connections"]
         direction TB
