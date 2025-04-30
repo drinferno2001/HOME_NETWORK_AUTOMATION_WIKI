@@ -25,17 +25,17 @@ flowchart TD
     %% Define Production Home Network Nodes
 
     PRD_OPNSense["OPNSense Firewall/Router"]
-    PRD_Switching["L2 Network (w VLAN Switching)"]
-    DEV_Workstation["Dev Workstation<br/>(VSCode + SSH Plugin)"]
+    PRD_Switching["LAN(s)"]
+    DEV_Workstation["Dev Workstation<br/>(VSCode)"]
 
     %% Define Proxmox Server Nodes
 
-    PVE_LXC["Ubuntu 24.04 LXC Container<br/>(Ansible Control Node w/Git Repos)"]
+    PVE_LXC["Ubuntu 24.04 LXC Container<br/>(Ansible Control Node)"]
 
     %% Define GNS3 Server Nodes
 
     VIRT_OPNSense["OPNSense Virtual Appliance<br/>(Ansible Managed Node)"]
-    VIRT_Switching["Virtual L2 Network (w/ VLAN Switching)"]
+    VIRT_Switching["LAN(s)"]
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %% DEFINE SUBGRAPH STRUCTURES %%
