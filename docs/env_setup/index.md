@@ -126,9 +126,25 @@ flowchart TD
     Production_Home_Network:::PROD
 ```
 
+### VLANS / Connections
+
 | COLOR | VLAN Name | VLAN ID |
-| ------ | ------------ | --- |
+| ----- | ----- | ----- |
 | BLUE | VLAN Trunks (RoAS or Router-On-A-Stick) | N/A |
 | GREEN | OPNSense Virtual Appliance WAN | 200 |
 | RED | OPNSense Virtual Appliance MGMT | 210 |
 | BLACK | OTHER | N/A |
+
+### Network Format (VLANS)
+
+| NETWORK | GATEWAY/DNS ADDRESSES | DHCP RANGE |
+| ----- | ---- | ----- |
+| 172.99.[VLAN ID].200/24 | .254 | .100-.199 |
+
+### Device IP Addresses
+
+| LEASING SCHEME | IP ADDRESS | DEVICE |
+| ----- | ----- | ----- |
+| STATIC | 172.99.210.200/24 | Proxmox VE Ubuntu LXC Interface |
+| STATIC | 172.99.210.201/24 | OPNSense Virtual Appliance MGMT Interface |
+| DHCP | DYNAMIC | OPNSense Virtual Appliance WAN Interface
