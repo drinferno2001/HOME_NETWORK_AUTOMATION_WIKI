@@ -47,6 +47,8 @@ flowchart TD
     end
     
     %% Define Production Home Network Subgraph (and any nested/formatting-type subgraphs)
+    
+    %%{ init: { 'flowchart': { 'curve': 'stepBefore' } } }%%
     subgraph Production_Home_Network [" "]
             
         PHN_Block_Title
