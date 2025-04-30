@@ -36,11 +36,11 @@ flowchart LR
         subgraph PHN_Container[" "]
             direction LR
             
-            PRD_OPNSense --- PRD_Switching
-            PRD_Switching --- DEV_Workstation
+            PRD_OPNSense === PRD_Switching
+            PRD_Switching === DEV_Workstation
             
             %% Define Proxmox VE Server Block
-            subgraph Proxmox_VE_Server ["PROXMOX VE SERVER<br/>(Hosts VM/CTs)"]
+            subgraph Proxmox_VE_Server ["PROXMOX VE SERVER<br/>(VM/CTs)"]
                 subgraph Proxmox_VE_Server_Padding[" "]
                     PVE_LXC
                 end
@@ -49,17 +49,17 @@ flowchart LR
             end
 
             %% Define GNS3 Server Block
-            subgraph GNS3_Server ["GNS3 SERVER<br/>(Hosts Virtual Network Lab)"]
+            subgraph GNS3_Server ["GNS3 SERVER<br/>(Virtual Network Lab)"]
                 subgraph GNS3_Server_Padding[" "]
-                    VIRT_OPNSense --- VIRT_Switching
+                    VIRT_OPNSense === VIRT_Switching
                 end
 
                 GNS3_Server_Padding:::hidden
             end
 
-            PRD_Switching --- PVE_LXC
-            PRD_Switching --- VIRT_OPNSense
-            PRD_Switching --- VIRT_OPNSense
+            PRD_Switching === PVE_LXC
+            PRD_Switching === VIRT_OPNSense
+            PRD_Switching === VIRT_OPNSense
         end
 
         subgraph PHN_Padding[" "]
@@ -68,7 +68,11 @@ flowchart LR
         PHN_Container:::hidden ~~~ PHN_Padding:::hidden
     end
 
-    Internet --- PRD_OPNSense
+    Production_Home_Network:::PROD
+
+    Internet === PRD_OPNSense
+
+    %% Styles
 
     classDef hidden fill:#0000,stroke:#0000
 
