@@ -1,8 +1,8 @@
 # Initial Setup
 
-While a home network wouldn't typically be considered priority or critical enough to warrant a need to take extra precautions for a project like this, I didn't want to anger the rest of the household by killing. This is especially the case as I tend to swap between projects and completion timelines aren't entirely set in stone.
+While a home network wouldn't typically be considered priority or critical enough to warrant a need to take extra precautions for a project like this, I didn't want to anger the rest of the household by killing the Internet connection. This is especially the case as I tend to swap between projects and completion timelines aren't entirely set in stone.
 
-With that in mind, I decided to develop this automation by first replicating it into a virtualized environment in GNS3. As I had originally setup a GNS3 server for use in CCNA studies, I thought it best to utilize it now to stand up a testing environment that would take the brunt of most of the damage I could potentially do.
+With that in mind, I decided to develop this automation by first replicating it into a virtualized environment in GNS3. As I had originally setup a GNS3 server for use for my CCNA studies, I thought it best to utilize it now to stand up a testing environment for building my Ansible playbook(s).
 
 Since we are integrating with tools in a virtual environment, a particular setup had to be devised in order to ease development while also ensuring that we could get the 
 environment as close to production as humanely possible.
@@ -148,3 +148,14 @@ flowchart TD
 | STATIC | 172.99.210.200/24 | Proxmox VE Ubuntu LXC Interface |
 | STATIC | 172.99.210.201/24 | OPNSense Virtual Appliance MGMT Interface |
 | DHCP | DYNAMIC | OPNSense Virtual Appliance WAN Interface
+
+The original production network consisted of an OPNSense firewall in an RoAS configuration with multiple VLAN-trunked Unifi switches providing access to end devices and servers in the household.
+
+In starting this project, the idea was to automate the setup of that production firewall by connecting downstream of its default LAN interface and running the playbook 
+against the interface IP address (192.168.1.1/24). However, if I tried to replicate that same configuration in GNS3, I would've had to resort to using a GNS3 appliance to develop my playbooks(s). While I could've looked at some configuration for passing the virtual environment's LAN back to the production network (by providing a physical interface out to the network), I wanted to avoid that looped configuration due to the possibility of the virtual LAN's network segment overlapping with the production's network (as it's the default LAN is in use in production for management of the current Unifi stack).
+
+With that in mind, I used a CLI Debian-based appliance within GNS3 for development. However, I got tired of it pretty quickly due to the headaches involved in CLI navigation and looked to using Visual Studio Code as I was quite comfortable with it from my time working on NGF Records. However, at the same time, I didn't feel that it was good to bloat that appliance with a GUI for development when I was using an old gaming PC as my workstation locally. Instead, I looked to having a separate management interface setup (with minimal configuration) on the OPNSense appliance and having that interface connected to a production VLAN (ID: 210) that my development workstation could access (from it's place on another production VLAN not named here).
+
+That setup looked good so far but I realized that I couldn't use my Windows 11-based workstation as a control node (it was feasible with WSL or Windows Subsystem for Linux but I didn't want to use a setup that Ansible designated as unsupported). At that point, I got around it by setting up an Ubuntu LXC container on my Proxmox hypervisor (configured as a part of my homelab) and connected it to the same management VLAN. I jumped at this setup as I had realized from past experience that Visual Studio Code could use SSH to remote into another environment for development. At the same time, the isolated nature of using a container for development made it an optimal choice for acting as the Ansible control node (and host for both the code and documentation repositories). In the end, I simplified (and secured) the setup even further by making use of SSH agent forwarding to keep SSH keys local to my development workstation.
+
+I also introducted another production VLAN (ID: 200) and address range that I could use for the GNS3 OPNSense appliance WAN. As we were going to be building automations against a virtual firewall whose WAN address was handed down by a production VLAN through DHCP by a bare-metal firewall, I wanted to avoid the possibility of configuring an existing VLAN whose network segment overlapped with the address used by the virtual appliance's WAN connection (my environment used 10.19.50.0/24 originally for as an experimentation VLAN in production and that would've conflicted with automation development if we needed to configure that on one interface while the WAN was also using an address from it.)
