@@ -4,7 +4,6 @@ nav:
   - Project Goal: index.md
   - Initial Setup:
     - env_setup/index.md
-    - Testing (Virtualized Setup): env_setup/virt/pre-requisites.md
   - Logged Work: 
     - blog/index.md
 theme:
