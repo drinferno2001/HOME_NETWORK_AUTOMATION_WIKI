@@ -1,0 +1,25 @@
+site_name: Home Network Automation
+site_url: https://firstgambrellianempire.com/hna-wiki
+nav:
+  - Project Goal: index.md
+  - Initial Setup (Testing Environment):
+    - testing_env_setup/index.md
+    - testing_env_setup/opnsense_setup.md
+  - Logged Work: 
+    - blog/index.md
+theme:
+  palette:
+    primary: blue
+    scheme: default
+  name: material
+  features:
+    - navigation.indexes
+plugins:
+  - search
+  - blog
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
