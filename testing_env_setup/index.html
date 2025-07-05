@@ -1,0 +1,771 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://firstgambrellianempire.com/hna-wiki/testing_env_setup/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="opnsense_setup/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.15">
+    
+    
+      
+        <title>Initial Setup - Home Network Automation</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#initial-setup" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href=".." title="Home Network Automation" class="md-header__button md-logo" aria-label="Home Network Automation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Home Network Automation
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Initial Setup
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="Home Network Automation" class="md-nav__button md-logo" aria-label="Home Network Automation" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Home Network Automation
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Project Goal
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="./" class="md-nav__link md-nav__link--active">
+              
+  
+  
+  <span class="md-ellipsis">
+    Initial Setup (Testing Environment)
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link md-nav__link--active" for="__nav_2" id="__nav_2_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Initial Setup (Testing Environment)
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="opnsense_setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Ansible Managed Node Setup (OPNSense)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+      
+        
+          
+        
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <div class="md-nav__link md-nav__container">
+            <a href="../blog/" class="md-nav__link ">
+              
+  
+  
+  <span class="md-ellipsis">
+    Logged Work
+    
+  </span>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Logged Work
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_2" id="__nav_3_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Archive
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_2">
+            <span class="md-nav__icon md-icon"></span>
+            Archive
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../blog/archive/2025/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    2025
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#vlans-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      VLANS / Connections
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#network-format-vlans" class="md-nav__link">
+    <span class="md-ellipsis">
+      Network Format (VLANS)
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#device-ip-addresses" class="md-nav__link">
+    <span class="md-ellipsis">
+      Device IP Addresses
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="initial-setup">Initial Setup</h1>
+<p>While a home network wouldn't typically be considered priority or critical enough to warrant a need to take extra precautions for a project like this, I didn't want to anger the rest of the household by killing the Internet connection. This is especially the case as I tend to swap between projects and completion timelines aren't entirely set in stone.</p>
+<p>With that in mind, I decided to develop this automation by first replicating it into a virtualized (testing) environment in GNS3. As I had originally setup a GNS3 server for use for my CCNA studies, I thought it best to utilize it now to stand up a testing environment for building my Ansible playbook(s).</p>
+<p>Since we are integrating with tools in a virtual testing environment, a particular setup had to be devised in order to ease development while also ensuring that we could get the environment as close to production as humanely possible.</p>
+<p>In the end, we settled with the following for the server and networking setup:</p>
+<pre class="mermaid"><code>flowchart TD
+
+    %%%%%%%%%%%
+    %% NODES %%
+    %%%%%%%%%%%
+
+    %% DEFINE TITLE NODES %%
+
+    PHN_Block_Title@{ shape: doc, label: "PRODUCTION HOME NETWORK" }
+    GNS_Block_Title@{ shape: doc, label: "GNS3 SERVER&lt;br/&gt;(Virtual Network Lab)" }
+    Proxmox_Block_Title@{ shape: doc, label: "PROXMOX VE SERVER&lt;br/&gt;(VM/CTs)" }
+
+    %% Define Production Home Network Nodes
+
+    PRD_OPNSense["OPNSense Firewall/Router"]
+    PRD_Switching["LAN(s)"]
+    DEV_Workstation["Dev Workstation&lt;br/&gt;(VSCode)"]
+
+    %% Define Proxmox Server Nodes
+
+    PVE_LXC["Ubuntu 24.04 LXC Container&lt;br/&gt;(Ansible Control Node)"]
+
+    %% Define GNS3 Server Nodes
+
+    VIRT_OPNSense["OPNSense Virtual Appliance&lt;br/&gt;(Ansible Managed Node)"]
+    VIRT_Switching["LAN(s)"]
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %% DEFINE SUBGRAPH STRUCTURES %%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    %% Define Internet Subgraph
+
+    subgraph Internet
+    end
+
+    %% Define Production Home Network Subgraph (and any nested/formatting-type subgraphs)
+
+    %%{ init: { 'flowchart': { 'curve': 'stepBefore' } } }%%
+    subgraph Production_Home_Network [" "]
+
+        PHN_Block_Title
+
+        PRD_OPNSense
+        PRD_Switching
+        DEV_Workstation
+
+        %% Define Proxmox VE Server Block
+        subgraph Proxmox_VE_Server [" "]
+            direction TB
+            PVE_LXC
+            Proxmox_Block_Title
+        end
+
+        %% Define GNS3 Server Block
+        subgraph GNS3_Server [" "]
+            direction TB
+            VIRT_OPNSense
+            VIRT_Switching
+            GNS_Block_Title
+        end
+    end
+
+    %%%%%%%%%%%%%%%%%%%%%%
+    %% Link Definitions %%
+    %%%%%%%%%%%%%%%%%%%%%%
+
+    %% Link ID: 0 (INTERNET TO OPNSENSE PROD FIREWALL)
+    Internet === PRD_OPNSense
+
+    %% Link ID: 1 (OPSENSE PROD FIREWALL TO PROD LAN)
+    PRD_OPNSense === PRD_Switching
+
+    %% Link ID: 2 and 3 (PROD LAN TO VIRTUAL OPNSENSE APPLIANCE)
+    PRD_Switching === VIRT_OPNSense
+    PRD_Switching === VIRT_OPNSense
+
+    %% Link ID: 4 (VIRTUAL OPNSENSE APPLIANCE TO VIRTUAL LAN)
+    VIRT_OPNSense === VIRT_Switching
+
+    %% Link ID: 5 (PROD LAN TO DEVELOPMENT WORKSTATION)
+    PRD_Switching === DEV_Workstation
+
+    %% Link ID: 6 (PROD LAN TO PROXMOX LXC)
+    PRD_Switching === PVE_LXC
+
+    %% Link ID: 7, 8, 9 (TITLES)
+    VIRT_Switching ~~~ GNS_Block_Title
+    PVE_LXC ~~~ Proxmox_Block_Title
+
+    %%%%%%%%%%%%
+    %% Styles %%
+    %%%%%%%%%%%%
+
+    %% Hidden Nodes Style
+    classDef hidden fill:#0000,stroke:#0000
+
+    %% VLAN Trunk Link Style
+    linkStyle 1,4 stroke-width:7px,stroke:blue
+
+    %% OPNSense Virtual Appliance MGMT Link Style
+    linkStyle 2,6 stroke-width:7px,stroke:red
+
+    %% OPNSense Virtual Appliance WAN Link Style
+    linkStyle 3 stroke-width:7px,stroke:green
+
+    %% 'Other' Link Style
+    linkStyle 0,5 stroke-width:7px
+
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    %% Class-Based Style Applications %%
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+    Production_Home_Network:::PROD</code></pre>
+<h3 id="vlans-connections">VLANS / Connections</h3>
+<table>
+<thead>
+<tr>
+<th>COLOR</th>
+<th>VLAN Name</th>
+<th>VLAN ID</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BLUE</td>
+<td>VLAN Trunks (RoAS or Router-On-A-Stick)</td>
+<td>N/A</td>
+</tr>
+<tr>
+<td>GREEN</td>
+<td>OPNSense Virtual Appliance WAN</td>
+<td>200</td>
+</tr>
+<tr>
+<td>RED</td>
+<td>OPNSense Virtual Appliance MGMT</td>
+<td>210</td>
+</tr>
+<tr>
+<td>BLACK</td>
+<td>OTHER</td>
+<td>N/A</td>
+</tr>
+</tbody>
+</table>
+<h3 id="network-format-vlans">Network Format (VLANS)</h3>
+<table>
+<thead>
+<tr>
+<th>NETWORK</th>
+<th>GATEWAY/DNS ADDRESSES</th>
+<th>DHCP RANGE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>172.99.[VLAN ID].200/24</td>
+<td>.254</td>
+<td>.100-.199</td>
+</tr>
+</tbody>
+</table>
+<h3 id="device-ip-addresses">Device IP Addresses</h3>
+<table>
+<thead>
+<tr>
+<th>LEASING SCHEME</th>
+<th>IP ADDRESS</th>
+<th>DEVICE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>STATIC</td>
+<td>172.99.210.200/24</td>
+<td>Proxmox VE Ubuntu LXC Interface</td>
+</tr>
+<tr>
+<td>STATIC</td>
+<td>172.99.210.201/24</td>
+<td>OPNSense Virtual Appliance MGMT Interface</td>
+</tr>
+<tr>
+<td>DHCP</td>
+<td>DYNAMIC</td>
+<td>OPNSense Virtual Appliance WAN Interface</td>
+</tr>
+</tbody>
+</table>
+<p>The original production network consisted of an OPNSense firewall in an RoAS configuration with multiple VLAN-trunked Unifi switches providing access to end devices and servers in the household.</p>
+<p>In starting this project, the idea was to automate the setup of that production firewall by connecting downstream of its default LAN interface and running the playbook 
+against the interface IP address (192.168.1.1/24). However, if I tried to replicate that same configuration in GNS3, I would've had to resort to using a GNS3 appliance to develop my playbooks(s). While I could've looked at some configuration for passing the virtual environment's LAN back to the production network (by providing a physical interface out to the network), I wanted to avoid that looped configuration due to the possibility of the virtual LAN's network segment overlapping with the production's network (as it's the default LAN is in use in production for management of the current Unifi stack).</p>
+<p>With that in mind, I used a CLI Debian-based appliance within GNS3 for development. However, I got tired of it pretty quickly due to the headaches involved in CLI navigation and looked to using Visual Studio Code as I was quite comfortable with it from my time working on NGF Records. However, at the same time, I didn't feel that it was good to bloat that appliance with a GUI for development when I was using an old gaming PC as my workstation locally. Instead, I looked to having a separate management interface setup (with minimal configuration) on the OPNSense appliance and having that interface connected to a production VLAN (ID: 210) that my development workstation could access (from it's place on another production VLAN not named here).</p>
+<p>That setup looked good so far but I realized that I couldn't use my Windows 11-based workstation as a control node (it was feasible with WSL or Windows Subsystem for Linux but I didn't want to use a setup that Ansible designated as unsupported). At that point, I got around it by setting up an Ubuntu LXC container on my Proxmox hypervisor (configured as a part of my homelab) and connected it to the same management VLAN. I jumped at this setup as I had realized from past experience that Visual Studio Code could use SSH to remote into another environment for development. At the same time, the isolated nature of using a container for development made it an optimal choice for acting as the Ansible control node (and host for both the code and documentation repositories). In the end, I simplified (and secured) the setup even further by making use of SSH agent forwarding to keep SSH keys local to my development workstation.</p>
+<p>I also introducted another production VLAN (ID: 200) and address range that I could use for the GNS3 OPNSense appliance WAN. As we were going to be building automations against a virtual firewall whose WAN address was handed down by a production VLAN through DHCP by a bare-metal firewall, I wanted to avoid the possibility of configuring an existing VLAN whose network segment overlapped with the address used by the virtual appliance's WAN connection (my environment used 10.19.50.0/24 originally as an experimentation VLAN in production and that would've conflicted with automation development if we needed to configure that on one VLAN interface while the WAN was also using an address from that same segment.)</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["navigation.indexes"], "search": "../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.56ea9cef.min.js"></script>
+      
+    
+  </body>
+</html>
